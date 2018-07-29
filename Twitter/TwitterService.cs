@@ -17,13 +17,13 @@ namespace Twitter
             this.apiUrl = twitterAccess.ApiUrl;
         }
 
-        public async Task<TwitterSearchResult> Search(SearchOptions options)
+        public async Task<TwitterSearchResult> SearchAsync(SearchOptions options)
         {
-            string json = await GetSearchResponse(options);
+            string json = await GetSearchResponseAsync(options);
             return JsonConvert.DeserializeObject<TwitterSearchResult>(json);
         }
 
-        private async Task<string> GetSearchResponse(SearchOptions options)
+        private async Task<string> GetSearchResponseAsync(SearchOptions options)
         {
             string address = this.apiUrl + options.GetSearchPartAddress();
             HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(address);
