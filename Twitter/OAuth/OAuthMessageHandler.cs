@@ -12,13 +12,13 @@ namespace Twitter.OAuth
     /// </summary>
     public class OAuthMessageHandler : DelegatingHandler
     {
-        private TwitterAccess twitterAccess;
+        private TwitterApiAccess twitterApiAccess;
         private OAuthBase _oAuthBase = new OAuthBase();
 
-        public OAuthMessageHandler(HttpMessageHandler innerHandler, TwitterAccess twitterAccess)
+        public OAuthMessageHandler(HttpMessageHandler innerHandler, TwitterApiAccess twitterApiAccess)
             : base(innerHandler)
         {
-            this.twitterAccess = twitterAccess;
+            this.twitterApiAccess = twitterApiAccess;
         }
 
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
@@ -30,10 +30,10 @@ namespace Twitter.OAuth
 
             string signature = _oAuthBase.GenerateSignature(
                 request.RequestUri,
-                this.twitterAccess.ConsumerKey,
-                this.twitterAccess.ConsumerSecret,
-                this.twitterAccess.Token,
-                this.twitterAccess.TokenSecret,
+                this.twitterApiAccess.ConsumerKey,
+                this.twitterApiAccess.ConsumerSecret,
+                this.twitterApiAccess.Token,
+                this.twitterApiAccess.TokenSecret,
                 request.Method.Method,
                 _oAuthBase.GenerateTimeStamp(),
                 _oAuthBase.GenerateNonce(),

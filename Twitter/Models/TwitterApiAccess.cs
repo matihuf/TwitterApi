@@ -2,7 +2,7 @@
 
 namespace Twitter.Models
 {
-    public class TwitterAccess
+    public class TwitterApiAccess
     {
         [JsonProperty("ApiUrl")]
         public string ApiUrl { get; set; }

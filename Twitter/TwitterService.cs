@@ -11,10 +11,10 @@ namespace Twitter
         private HttpClient httpClient;
         private string apiUrl;
 
-        public TwitterService(TwitterAccess twitterAccess)
+        public TwitterService(TwitterApiAccess twitterApiAccess)
         {
-            this.httpClient = new HttpClient(new OAuthMessageHandler(new HttpClientHandler(), twitterAccess));
-            this.apiUrl = twitterAccess.ApiUrl;
+            this.httpClient = new HttpClient(new OAuthMessageHandler(new HttpClientHandler(), twitterApiAccess));
+            this.apiUrl = twitterApiAccess.ApiUrl;
         }
 
         public async Task<TwitterSearchResult> SearchAsync(SearchOptions options)
