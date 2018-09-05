@@ -1,9 +1,11 @@
-﻿namespace Twitter.Models
+﻿namespace QuickType.TweetsResponse
 {
     using System;
+    using System.Globalization;
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
 
-    public partial class TwitterSearchResult
+    public partial class TweetsResponse
     {
         [JsonProperty("statuses")]
         public Status[] Statuses { get; set; }
@@ -18,7 +20,7 @@
         public double CompletedIn { get; set; }
 
         [JsonProperty("max_id")]
-        public long? MaxId { get; set; }
+        public long MaxId { get; set; }
 
         [JsonProperty("max_id_str")]
         public string MaxIdStr { get; set; }
@@ -33,13 +35,14 @@
         public string RefreshUrl { get; set; }
 
         [JsonProperty("count")]
-        public long? Count { get; set; }
+        public long Count { get; set; }
 
         [JsonProperty("since_id")]
-        public long? SinceId { get; set; }
+        public long SinceId { get; set; }
 
         [JsonProperty("since_id_str")]
-        public long? SinceIdStr { get; set; }
+        [JsonConverter(typeof(ParseStringConverter))]
+        public long SinceIdStr { get; set; }
     }
 
     public partial class Status
@@ -68,9 +71,6 @@
         [JsonProperty("entities")]
         public StatusEntities Entities { get; set; }
 
-        [JsonProperty("extended_entities")]
-        public ExtendedEntities ExtendedEntities { get; set; }
-
         [JsonProperty("metadata")]
         public Metadata Metadata { get; set; }
 
@@ -78,19 +78,19 @@
         public string Source { get; set; }
 
         [JsonProperty("in_reply_to_status_id")]
-        public long? InReplyToStatusId { get; set; }
+        public object InReplyToStatusId { get; set; }
 
         [JsonProperty("in_reply_to_status_id_str")]
-        public string InReplyToStatusIdStr { get; set; }
+        public object InReplyToStatusIdStr { get; set; }
 
         [JsonProperty("in_reply_to_user_id")]
-        public long? InReplyToUserId { get; set; }
+        public object InReplyToUserId { get; set; }
 
         [JsonProperty("in_reply_to_user_id_str")]
-        public long? InReplyToUserIdStr { get; set; }
+        public object InReplyToUserIdStr { get; set; }
 
         [JsonProperty("in_reply_to_screen_name")]
-        public string InReplyToScreenName { get; set; }
+        public object InReplyToScreenName { get; set; }
 
         [JsonProperty("user")]
         public User User { get; set; }
@@ -111,10 +111,10 @@
         public bool IsQuoteStatus { get; set; }
 
         [JsonProperty("retweet_count")]
-        public long? RetweetCount { get; set; }
+        public long RetweetCount { get; set; }
 
         [JsonProperty("favorite_count")]
-        public long? FavoriteCount { get; set; }
+        public long FavoriteCount { get; set; }
 
         [JsonProperty("favorited")]
         public bool Favorited { get; set; }
@@ -138,97 +138,25 @@
         public object[] Symbols { get; set; }
 
         [JsonProperty("user_mentions")]
-        public UserMention[] UserMentions { get; set; }
+        public object[] UserMentions { get; set; }
 
         [JsonProperty("urls")]
         public Url[] Urls { get; set; }
-
-        [JsonProperty("media")]
-        public Media[] Media { get; set; }
     }
 
-    public partial class Media
+    public partial class Url
     {
-        [JsonProperty("id")]
-        public long? Id { get; set; }
-
-        [JsonProperty("id_str")]
-        public string IdStr { get; set; }
-
-        [JsonProperty("indices")]
-        public long?[] Indices { get; set; }
-
-        [JsonProperty("media_url")]
-        public string MediaUrl { get; set; }
-
-        [JsonProperty("media_url_https")]
-        public string MediaUrlHttps { get; set; }
-
         [JsonProperty("url")]
-        public string Url { get; set; }
-
-        [JsonProperty("display_url")]
-        public string DisplayUrl { get; set; }
+        public string UrlUrl { get; set; }
 
         [JsonProperty("expanded_url")]
         public string ExpandedUrl { get; set; }
 
-        [JsonProperty("type")]
-        public string Type { get; set; }
-
-        [JsonProperty("sizes")]
-        public Sizes Sizes { get; set; }
-    }
-
-    public partial class Sizes
-    {
-        [JsonProperty("thumb")]
-        public Large Thumb { get; set; }
-
-        [JsonProperty("medium")]
-        public Large Medium { get; set; }
-
-        [JsonProperty("large")]
-        public Large Large { get; set; }
-
-        [JsonProperty("small")]
-        public Large Small { get; set; }
-    }
-
-    public partial class Large
-    {
-        [JsonProperty("w")]
-        public long? W { get; set; }
-
-        [JsonProperty("h")]
-        public long? H { get; set; }
-
-        [JsonProperty("resize")]
-        public string Resize { get; set; }
-    }
-
-    public partial class UserMention
-    {
-        [JsonProperty("screen_name")]
-        public string ScreenName { get; set; }
-
-        [JsonProperty("name")]
-        public string Name { get; set; }
-
-        [JsonProperty("id")]
-        public long? Id { get; set; }
-
-        [JsonProperty("id_str")]
-        public string IdStr { get; set; }
+        [JsonProperty("display_url")]
+        public string DisplayUrl { get; set; }
 
         [JsonProperty("indices")]
-        public long?[] Indices { get; set; }
-    }
-
-    public partial class ExtendedEntities
-    {
-        [JsonProperty("media")]
-        public Media[] Media { get; set; }
+        public long[] Indices { get; set; }
     }
 
     public partial class Metadata
@@ -243,10 +171,11 @@
     public partial class User
     {
         [JsonProperty("id")]
-        public long? Id { get; set; }
+        public long Id { get; set; }
 
         [JsonProperty("id_str")]
-        public string IdStr { get; set; }
+        [JsonConverter(typeof(ParseStringConverter))]
+        public long IdStr { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -261,7 +190,7 @@
         public string Description { get; set; }
 
         [JsonProperty("url")]
-        public object Url { get; set; }
+        public string Url { get; set; }
 
         [JsonProperty("entities")]
         public UserEntities Entities { get; set; }
@@ -270,19 +199,19 @@
         public bool Protected { get; set; }
 
         [JsonProperty("followers_count")]
-        public long? FollowersCount { get; set; }
+        public long FollowersCount { get; set; }
 
         [JsonProperty("friends_count")]
-        public long? FriendsCount { get; set; }
+        public long FriendsCount { get; set; }
 
         [JsonProperty("listed_count")]
-        public long? ListedCount { get; set; }
+        public long ListedCount { get; set; }
 
         [JsonProperty("created_at")]
         public string CreatedAt { get; set; }
 
         [JsonProperty("favourites_count")]
-        public long? FavouritesCount { get; set; }
+        public long FavouritesCount { get; set; }
 
         [JsonProperty("utc_offset")]
         public object UtcOffset { get; set; }
@@ -297,7 +226,7 @@
         public bool Verified { get; set; }
 
         [JsonProperty("statuses_count")]
-        public long? StatusesCount { get; set; }
+        public long StatusesCount { get; set; }
 
         [JsonProperty("lang")]
         public string Lang { get; set; }
@@ -328,9 +257,6 @@
 
         [JsonProperty("profile_image_url_https")]
         public string ProfileImageUrlHttps { get; set; }
-
-        [JsonProperty("profile_banner_url")]
-        public string ProfileBannerUrl { get; set; }
 
         [JsonProperty("profile_link_color")]
         public string ProfileLinkColor { get; set; }
@@ -371,6 +297,9 @@
 
     public partial class UserEntities
     {
+        [JsonProperty("url")]
+        public Description Url { get; set; }
+
         [JsonProperty("description")]
         public Description Description { get; set; }
     }
@@ -381,18 +310,56 @@
         public Url[] Urls { get; set; }
     }
 
-    public partial class Url
+    public partial class TweetsResponse
     {
-        [JsonProperty("url")]
-        public string UrlUrl { get; set; }
+        public static TweetsResponse FromJson(string json) => JsonConvert.DeserializeObject<TweetsResponse>(json, Converter.Settings);
+    }
 
-        [JsonProperty("expanded_url")]
-        public string ExpandedUrl { get; set; }
+    public static class Serialize
+    {
+        public static string ToJson(this TweetsResponse self) => JsonConvert.SerializeObject(self, Converter.Settings);
+    }
 
-        [JsonProperty("display_url")]
-        public string DisplayUrl { get; set; }
+    internal static class Converter
+    {
+        public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
+        {
+            MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
+            DateParseHandling = DateParseHandling.None,
+            Converters = {
+                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
+            },
+        };
+    }
 
-        [JsonProperty("indices")]
-        public long?[] Indices { get; set; }
+    internal class ParseStringConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(long) || t == typeof(long?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            long l;
+            if (Int64.TryParse(value, out l))
+            {
+                return l;
+            }
+            throw new Exception("Cannot unmarshal type long");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (long)untypedValue;
+            serializer.Serialize(writer, value.ToString());
+            return;
+        }
+
+        public static readonly ParseStringConverter Singleton = new ParseStringConverter();
     }
 }

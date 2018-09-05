@@ -1,14 +1,13 @@
 ﻿using System.Text;
 
-namespace Twitter.Models
+namespace Twitter.Models.Search
 {
     public class SearchOptions
     {
         public string Q { get; set; }
         public int? Count { get; set; }
-        public string Lang { get; set; }
 
-        public string GetSearchPartAddress()
+        public virtual string GetSearchPartAddress()
         {
             StringBuilder searchPart = new StringBuilder();
             if(!string.IsNullOrEmpty(Q))
@@ -20,15 +19,9 @@ namespace Twitter.Models
             if(Count.HasValue)
             {
                 searchPart.Append("count=" + Count.Value);
-                searchPart.Append("&");
-            }
-            if (!string.IsNullOrEmpty(Lang))
-            {
-                searchPart.Append("lang=" + Lang);
-                searchPart.Append("&");
             }
 
-            return searchPart.Remove(searchPart.Length - 1, 1).ToString();
+            return searchPart.ToString();
         }
     }
 }
