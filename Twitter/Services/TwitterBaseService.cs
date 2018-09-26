@@ -8,10 +8,11 @@ namespace Twitter
     public abstract class TwitterBaseService
     {
         protected HttpClient httpClient;
-        protected static string BASE_URL = "https://api.twitter.com/1.1/";
+        protected readonly string apiUrl;
 
         public TwitterBaseService(TwitterApiAccess twitterApiAccess)
         {
+            this.apiUrl = twitterApiAccess.ApiUrl;
             this.httpClient = new HttpClient(new OAuthMessageHandler(new HttpClientHandler(), twitterApiAccess));
         }
 

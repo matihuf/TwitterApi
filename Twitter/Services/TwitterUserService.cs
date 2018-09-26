@@ -15,7 +15,7 @@ namespace Twitter.Services.AccountsAndUsers
 
         public async Task<UserSearchResponse[]> SearchAsync(UserSearchOptions options)
         {
-            string url = BASE_URL + USER_URL + options.GetSearchPartAddress();
+            string url = apiUrl + USER_URL + options.GetSearchPartAddress();
             string json = await GetSearchResponseAsync(url);
             return UserSearchResponse.FromJson(json);
         }
