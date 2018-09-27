@@ -13,7 +13,7 @@ namespace Twitter.Services.Tweets
         {
         }
 
-        public async Task<TweetsResponse> SearchAsync(SearchOptions options)
+        public async Task<TweetsResponse> SearchAsync(TweetSearchOptions options)
         {
             string url = apiUrl + SEARCH_URL + options.GetSearchPartAddress();
             string json = await GetSearchResponseAsync(url);
