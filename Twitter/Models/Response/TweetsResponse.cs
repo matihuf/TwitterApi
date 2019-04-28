@@ -90,7 +90,7 @@
         public object InReplyToUserIdStr { get; set; }
 
         [JsonProperty("in_reply_to_screen_name")]
-        public object InReplyToScreenName { get; set; }
+        public string InReplyToScreenName { get; set; }
 
         [JsonProperty("user")]
         public User User { get; set; }
